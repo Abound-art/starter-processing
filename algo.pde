@@ -1,11 +1,19 @@
-void setup() {
-  size(0,0);
-  Config cfg = new Config("/config/config.json");
-  run(cfg);
-  exit();
+class Config {
+  float beta, rho, sigma, dt;
+  int iterations, resultSize;
+
+  Config(String filename) {
+    JSONObject json = loadJSONObject(filename);
+    rho = json.getFloat("rho");
+    sigma = json.getFloat("sigma");
+    beta = json.getFloat("beta");
+    dt = json.getFloat("dt");
+    iterations = json.getInt("iterations");
+    resultSize = json.getInt("result_size");
+  }
 }
 
-void run(Config cfg) {
+PImage run(Config cfg) {
   Point3[] points = new Point3[cfg.iterations];
   points[0] = new Point3(1, 1, 1);
   Bounds bounds = new Bounds(new Point3(1, 1, 1), new Point3(1, 1, 1));
@@ -45,7 +53,7 @@ void run(Config cfg) {
       }
     }
   }
-  img.save("/out/output.png");
+  return img;
 }
 
 Point3 nextStep(Config cfg, Point3 p) {
@@ -53,20 +61,6 @@ Point3 nextStep(Config cfg, Point3 p) {
   float dydt = p.x*(cfg.rho-p.z) - p.y;
   float dzdt = p.x*p.y - cfg.beta*p.z;
   return new Point3(p.x + dxdt*cfg.dt, p.y + dydt*cfg.dt, p.z + dzdt*cfg.dt);
-}
-
-class Config {
-  float beta, rho, sigma, dt;
-  int iterations, resultSize;
-  Config(String filename) {
-    JSONObject json = loadJSONObject(filename);
-    rho = json.getFloat("rho");
-    sigma = json.getFloat("sigma");
-    beta = json.getFloat("beta");
-    dt = json.getFloat("dt");
-    iterations = json.getInt("iterations");
-    resultSize = json.getInt("result_size");
-  }
 }
 
 class Point3 {

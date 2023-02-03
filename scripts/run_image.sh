@@ -26,10 +26,9 @@ if [ -n "${2+set}" ]; then
 fi
 touch "$ABOUND_OUTPUT_PATH"
 
-docker run --rm -i \
+docker run --rm -it \
   --env ABOUND_CONFIG_PATH="/config/config.json" \
   --env ABOUND_OUTPUT_PATH="/out/output.png" \
   --volume "$ABOUND_CONFIG_PATH:/config/config.json:ro" \
   --volume "$ABOUND_OUTPUT_PATH:/out/output.png" \
-  --volume "$ROOT/algo.pde:/algo/algo.pde:ro" \
-  abound-starter-processing --sketch=/algo/ --run
+  abound-starter-processing 

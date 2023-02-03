@@ -6,4 +6,5 @@ if ! [ -x "$(command -v docker)" ]; then
   exit 1
 fi
 
+docker build -t processing-base -f Dockerfile.base .
 docker build -t abound-starter-processing .

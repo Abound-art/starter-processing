@@ -85,6 +85,10 @@ Processing support, we also build one of those and tag it as `processing-base`.
 [This guide](https://github.com/processing/processing/wiki/Running-without-a-Display)
 on running Processing without a display provided the general pattern used.
 
+Note that we run Docker with the `--init` flag to run with PID 1 being a
+minimal init system. This is preferable to baking an init system into the
+image, because the algo does not run as PID 1 on ABOUND infrastructure.
+
 ## Deploying on ABOUND 
 
 Head to https://abound.art/artists for the most recent instructions on how to upload

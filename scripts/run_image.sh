@@ -27,6 +27,7 @@ fi
 touch "$ABOUND_OUTPUT_PATH"
 
 docker run --rm -it \
+  --init \
   --env ABOUND_CONFIG_PATH="/config/config.json" \
   --env ABOUND_OUTPUT_PATH="/out/output.png" \
   --volume "$ABOUND_CONFIG_PATH:/config/config.json:ro" \

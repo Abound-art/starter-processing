@@ -10,11 +10,10 @@ RUN apt-get update \
     ca-certificates \
     libxrender1 \
     libxtst6 \
-    tini \
   && wget --quiet https://github.com/processing/processing4/releases/download/processing-1290-4.1.2/processing-4.1.2-linux-x64.tgz \
   && tar xfz processing-4.1.2-linux-x64.tgz \
   && rm processing-4.1.2-linux-x64.tgz
 
 COPY shim.sh shim.sh
 
-ENTRYPOINT ["/usr/bin/tini", "--", "/processing/shim.sh"]
+ENTRYPOINT ["/processing/shim.sh"]
